@@ -20,8 +20,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="3D Test 3.5"
-config/description="Enter an interesting project description here!"
+config/name="Godot 3.5 Third Person Controller"
+config/description="Faithful recreation of WaffleAWT's Godot 4.1 Third Person Controller, plus added Android support with virtual joystick from https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot/tree/v3"
 run/main_scene="res://Scenes/Levels/Prototype.tscn"
 config/icon="res://icon.png"
 
@@ -29,6 +29,9 @@ config/icon="res://icon.png"
 
 window/size/width=540
 window/size/height=960
+window/handheld/orientation="portrait"
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
 
 [input]
 
