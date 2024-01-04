@@ -1,0 +1,88 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Assets/Textures/Sky.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Textures/Black.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Characters/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Textures/Orange.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Textures/Green.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/Levels/Prototype.gd" type="Script" id=6]
+
+[sub_resource type="PanoramaSky" id=1]
+panorama = ExtResource( 1 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = ExtResource( 2 )
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id=4]
+material = SubResource( 3 )
+size = Vector2( 50, 50 )
+
+[sub_resource type="ConcavePolygonShape" id=13]
+data = PoolVector3Array( 25, 0, 25, -25, 0, 25, 25, 0, -25, -25, 0, 25, -25, 0, -25, 25, 0, -25 )
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_texture = ExtResource( 4 )
+uv1_triplanar = true
+
+[sub_resource type="CubeMesh" id=7]
+material = SubResource( 6 )
+size = Vector3( 10, 3, 1 )
+
+[sub_resource type="ConcavePolygonShape" id=11]
+data = PoolVector3Array( -5, 1.5, 0.5, 5, 1.5, 0.5, -5, -1.5, 0.5, 5, 1.5, 0.5, 5, -1.5, 0.5, -5, -1.5, 0.5, 5, 1.5, -0.5, -5, 1.5, -0.5, 5, -1.5, -0.5, -5, 1.5, -0.5, -5, -1.5, -0.5, 5, -1.5, -0.5, 5, 1.5, 0.5, 5, 1.5, -0.5, 5, -1.5, 0.5, 5, 1.5, -0.5, 5, -1.5, -0.5, 5, -1.5, 0.5, -5, 1.5, -0.5, -5, 1.5, 0.5, -5, -1.5, -0.5, -5, 1.5, 0.5, -5, -1.5, 0.5, -5, -1.5, -0.5, 5, 1.5, 0.5, -5, 1.5, 0.5, 5, 1.5, -0.5, -5, 1.5, 0.5, -5, 1.5, -0.5, 5, 1.5, -0.5, -5, -1.5, 0.5, 5, -1.5, 0.5, -5, -1.5, -0.5, 5, -1.5, 0.5, 5, -1.5, -0.5, -5, -1.5, -0.5 )
+
+[sub_resource type="PrismMesh" id=9]
+left_to_right = -2.0
+size = Vector3( 5, 5, 5 )
+
+[sub_resource type="SpatialMaterial" id=10]
+albedo_texture = ExtResource( 5 )
+uv1_triplanar = true
+
+[sub_resource type="ConcavePolygonShape" id=12]
+data = PoolVector3Array( -12.5, 2.5, 2.5, 2.5, -2.5, 2.5, -2.5, -2.5, 2.5, -12.5, 2.5, -2.5, -2.5, -2.5, -2.5, 2.5, -2.5, -2.5, -12.5, 2.5, 2.5, -12.5, 2.5, -2.5, 2.5, -2.5, 2.5, -12.5, 2.5, -2.5, 2.5, -2.5, -2.5, 2.5, -2.5, 2.5, -12.5, 2.5, -2.5, -12.5, 2.5, 2.5, -2.5, -2.5, -2.5, -12.5, 2.5, 2.5, -2.5, -2.5, 2.5, -2.5, -2.5, -2.5, -2.5, -2.5, 2.5, 2.5, -2.5, 2.5, -2.5, -2.5, -2.5, 2.5, -2.5, 2.5, 2.5, -2.5, -2.5, -2.5, -2.5, -2.5 )
+
+[node name="Prototype" type="Spatial"]
+script = ExtResource( 6 )
+android_mode = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.86605, -0.433032, 0.249882, 0.499958, -0.749655, 0.433659, -0.000463188, 0.500501, 0.865736, 0, 0, 0 )
+shadow_enabled = true
+
+[node name="Floor" type="MeshInstance" parent="."]
+mesh = SubResource( 4 )
+
+[node name="StaticBody" type="StaticBody" parent="Floor"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor/StaticBody"]
+shape = SubResource( 13 )
+
+[node name="Wall" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3 )
+mesh = SubResource( 7 )
+
+[node name="StaticBody" type="StaticBody" parent="Wall"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall/StaticBody"]
+shape = SubResource( 11 )
+
+[node name="Slope" type="MeshInstance" parent="Wall"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, 4 )
+mesh = SubResource( 9 )
+material/0 = SubResource( 10 )
+
+[node name="StaticBody" type="StaticBody" parent="Wall/Slope"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall/Slope/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
